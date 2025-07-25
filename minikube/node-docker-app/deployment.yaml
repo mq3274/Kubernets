@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app-deployment         # Deployment name
+  labels:
+    app: node-app                   # Label for selecting pods
+spec:
+  replicas: 2                       # How many pods you want
+  selector:
+    matchLabels:
+      app: node-app                # Which pods this deployment manages
+  template:                         # Template to create pods
+    metadata:
+      labels:
+        app: node-app              # Pod label (must match selector)
+    spec:
+      containers:
+      - name: node-app-container   # Container name
+        image: mq3274/my-first-docker-images:latest  # Docker image
+        ports:
+        - containerPort: 3000      # Port exposed by the app

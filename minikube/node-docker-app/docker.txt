@@ -1,0 +1,6 @@
+
+FROM node:18	         Node.js ka official image le raha hai
+WORKDIR /app	         Container ke andar /app folder banake waha kaam hoga
+COPY . .	             Host (apka computer) ka current folder (.) ka sab kuch copy hoga → container ke /app folder (.) ke andar
+RUN npm                  install	Dependencies install karega
+CMD ["npm", "start"]	 Container start hone ke baad npm start chalega
