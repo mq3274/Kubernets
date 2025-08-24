@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-dep1-service
+spec:
+  ports:
+    # Accept traffic sent to port 80
+    - name: http
+      port: 8080
+      targetPort: 3000
+  selector:
+    # Loadbalance traffic across Pods matching
+    # this label selector
+    app: my-dep-pod
+  # Create an HA proxy in the cloud provider
+  # with an External IP address - *Only supported
+  # by some cloud providers*
+  type: LoadBalancer

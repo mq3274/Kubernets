@@ -1,21 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: node-app-deployment         # Deployment name
+  name: test1-deployment         # Deployment name
   labels:
-    app: node-app                   # Label for selecting pods
+    app: selecting-2-pod                  # Label for selecting pods
 spec:
-  replicas: 2                       # How many pods you want
+  replicas: 3                   # How many pods you want
   selector:
     matchLabels:
-      app: node-app                # Which pods this deployment manages
+      app: mera-pod                # Which pods this deployment manages
   template:                         # Template to create pods
     metadata:
       labels:
-        app: node-app              # Pod label (must match selector)
+        app: mera-pod             # Pod label (must match selector)
     spec:
       containers:
-      - name: node-app-container   # Container name
-        image: mq3274/my-first-docker-images:latest  # Docker image
+      - name: mahi-container   # Container name
+        image: mq3274/mahi:latest  # Docker image
         ports:
-        - containerPort: 3000      # Port exposed by the app
+        - containerPort: 3003     # Port exposed by the app
+        env:
+        - name: USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: my-secret
+              key: username
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: my-secret
+              key: password

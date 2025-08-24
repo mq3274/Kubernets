@@ -1,10 +1,17 @@
-// index.js
-const http = require('http');
+const express = require('express');
+const path = require('path');
 
-const server = http.createServer((req, res) => {
-  res.end('kya baat hai Mehtab docker file fr se bambambole');
+const app = express();
+const PORT = 3000;
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve HTML
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
-server.listen(3000, () => {
-  console.log('Server running on port 5000');
+app.listen(PORT, () => {
+  console.log(`🚀 Server is running at http://localhost:${PORT}`);
 });
