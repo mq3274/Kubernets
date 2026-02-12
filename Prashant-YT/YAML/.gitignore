@@ -1,0 +1,13 @@
+# Terraform state files
+*.tfstate
+*.tfstate.backup
+
+# Terraform local directory
+.terraform/
+
+# SSH keys
+*.pem
+
+# Sensitive provider files
+provider.tf
+provider.tf

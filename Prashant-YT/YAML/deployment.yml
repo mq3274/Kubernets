@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   # Unique key of the Deployment instance
-  name: my-dep1
+  name: my-candy
 spec:
   # 3 Pods should exist at all times.
   replicas: 3
   selector:
     matchLabels:
-      app: my-dep-pod
+      app: my-candy-pod
   template:
     metadata:
       labels:
         # Apply this label to pods and default
         # the Deployment label selector to this value
-        app: my-dep-pod
+        app: my-candy-pod
     spec:
       containers:
-      - name: my-cont
+      - name: candy-con
         # Run this image
-        image: mq3274/test-app1:v1
+        image: mq3274/candy-store2:v2
