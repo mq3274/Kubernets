@@ -1,0 +1,22 @@
+pool: mac-pool
+trigger: none
+
+variables:
+  k8sNamespace: default
+
+steps:
+
+# Step 1: Checkout code
+- checkout: self
+
+# Step 2: Deploy to Kubernetes
+- task: KubernetesManifest@1
+  inputs:
+    action: deploy
+    kubernetesServiceConnection: 'k8s-connection'
+    namespace: $(k8sNamespace)
+    manifests: |
+      deployment.yaml
+      service.yaml
+      configmap.yaml
+      secret.yaml
