@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25
+        ports:
+        - containerPort: 80
+
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+
+        - name: APP_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: APP_ENV
+
+        - name: USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: USERNAME
+
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            echo "Pod: $POD_NAME | Env: $APP_ENV | User: $USERNAME" > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'
